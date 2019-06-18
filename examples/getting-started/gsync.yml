@@ -1,0 +1,8 @@
+apiVersion: "gsync/v1alpha1"
+project:
+  name: "getting-started"
+  repositories:
+    - git: "git@github.com:golang/example.git"
+      dir: "./example"
+    - git: "git@github.com:golang/blog.git"
+      dir: "./blog"
