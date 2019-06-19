@@ -37,5 +37,9 @@ type  Repository struct {
 func (r *Repository) GetName() string {
 	re := regexp.MustCompile("/([^/]*)\\.git$")
 	match := re.FindStringSubmatch(r.Git)
-	return match[1]
+	if len(match) > 0 {
+		return match[1]
+	}
+
+	return ""
 }

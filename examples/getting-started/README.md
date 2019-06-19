@@ -11,6 +11,10 @@ By running the `clean` command, Gsync will detect missing reporitories, clone th
 By doing so, gsync will discard all changes that are not staged.
 
 ```sh
+# Clean up all project repositories
 gsync clean
+
+# Invite the user to select which reposirtories to clean up
+gsync clean -i
 ```
 

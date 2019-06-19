@@ -11,6 +11,7 @@ import (
 var (
 	verbosity string
 	filename string
+	interactive bool
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -53,4 +54,8 @@ func setUpLogs(out io.Writer, level string) error {
 		TimestampFormat: "2006-01-02 15:04:05",
 	})
 	return nil
+}
+
+func addInteractiveFlag(cmd *cobra.Command) {
+	cmd.Flags().BoolVarP(&interactive, "interactive", "i", true, "active interactive mode")
 }

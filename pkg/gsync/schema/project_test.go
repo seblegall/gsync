@@ -9,7 +9,12 @@ import (
 
 
 var (
-	config = `
+	tmpfilename = "/tmp/gsync.yml"
+)
+
+func TestLoadProject(t *testing.T) {
+
+	config := `
 apiVersion: "gsync/v1alpha1"
 project:
     name: "test"
@@ -19,11 +24,7 @@ project:
         - git: "git2@test.git"
           dir: "path/to/my/dir2"
 `
-	tmpfilename = "/tmp/gsync.yml"
-)
 
-
-func TestLoadProjects(t *testing.T) {
 	defer filet.CleanUp(t)
 
 	filet.File(t, tmpfilename, config)

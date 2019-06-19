@@ -21,6 +21,7 @@ var cleanCmd = &cobra.Command{
 }
 
 func NewCleanCommand() *cobra.Command {
+	addInteractiveFlag(cleanCmd)
 	return cleanCmd
 }
 
@@ -30,5 +31,5 @@ func runClean() error {
 		return err
 	}
 
-	return sync.Clean(p)
+	return sync.Clean(p, interactive)
 }

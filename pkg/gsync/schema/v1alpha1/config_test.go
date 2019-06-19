@@ -1,7 +1,7 @@
 package v1alpha1
 
 import (
-	"github.com/magiconair/properties/assert"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -10,11 +10,19 @@ func TestRepository_GetName(t *testing.T) {
 		"http://github.com/test/gitrepo.git",
 		"/path/to/my/repo",
 	}
-	assert.Equal(t, repo.GetName(), "gitrepo")
+	assert.Equal(t, "gitrepo", repo.GetName())
 
 	repo2 := &Repository{
 		"git@github.com/test/gitrepo.git",
 		"/path/to/my/repo",
 	}
-	assert.Equal(t, repo2.GetName(), "gitrepo")
+	assert.Equal(t,"gitrepo", repo2.GetName())
+
+	repo3 := &Repository{
+		"git@github.com/test/gitrepo",
+		"/path/to/my/repo",
+	}
+	assert.Equal(t, "", repo3.GetName())
+
+
 }
