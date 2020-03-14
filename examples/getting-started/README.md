@@ -1,4 +1,4 @@
-#Getting Started
+# Getting Started
 
 This is a good place to test and learn how to use gsync.
 

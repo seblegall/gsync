@@ -26,10 +26,15 @@ func NewCleanCommand() *cobra.Command {
 }
 
 func runClean() error {
-	p, err := schema.LoadProject(filename)
+	projects, err := schema.LoadProjects(filename)
 	if err != nil {
 		return err
 	}
 
-	return sync.Clean(p, interactive)
+	for _, p := range projects {
+		if err := sync.Clean(p, interactive); err != nil {
+			return err
+		}
+	}
+	return nil
 }

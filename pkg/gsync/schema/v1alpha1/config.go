@@ -16,7 +16,7 @@ func NewGsyncConfig() config.VersionedConfig {
 
 type GsyncConfig struct {
 	APIVersion string `yaml:"apiVersion"`
-	Project Project `yaml:"project"`
+	Projects []Project `yaml:"projects"`
 }
 
 func (c *GsyncConfig) GetVersion() string {
