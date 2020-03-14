@@ -6,3 +6,7 @@ projects:
         dir: "./example"
       - git: "git@github.com:golang/blog.git"
         dir: "./blog"
+  - name: "further"
+    repositories:
+      - git: "git@github.com:golang/protobuf.git"
+        dir: "./proto"
