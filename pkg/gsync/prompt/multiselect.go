@@ -21,6 +21,11 @@ func SelectRepos(p v1alpha1.Project) []v1alpha1.Repository {
 	}))
 
 	if err != nil {
+		if  err.Error() == "interrupt" {
+			UserError("⛔️ Skipping project")
+			return nil
+		}
+
 		logrus.Errorf("an error occurred when trying prompt : %s", err.Error())
 		return nil
 	}

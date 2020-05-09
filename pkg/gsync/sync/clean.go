@@ -1,10 +1,12 @@
 package sync
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/seblegall/gsync/pkg/gsync/git"
 	"github.com/seblegall/gsync/pkg/gsync/prompt"
 	"github.com/seblegall/gsync/pkg/gsync/schema/v1alpha1"
-	"os"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -28,7 +30,7 @@ func Clean(p v1alpha1.Project, interactive bool) error {
 
 	repos := p.Repositories
 
-	log.Infof("cleaning up project %s", p.Name)
+	prompt.Title(fmt.Sprintf("🙌 Cleaning up project %s", p.Name))
 
 	if interactive {
 		repos = prompt.SelectRepos(p)
@@ -53,7 +55,7 @@ func Clean(p v1alpha1.Project, interactive bool) error {
 			return err
 		}
 
-		log.Infof("repository '%s' is now on branch master and up to date with origin", repo.GetName())
+		prompt.Info(fmt.Sprintf("'%s' is now on branch master and up to date with origin", repo.GetName()))
 
 	}
 

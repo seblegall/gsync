@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/seblegall/gsync/pkg/gsync/prompt"
 	"github.com/seblegall/gsync/pkg/gsync/schema"
 	"github.com/seblegall/gsync/pkg/gsync/schema/v1alpha1"
 	"github.com/seblegall/gsync/pkg/gsync/sync"
@@ -36,6 +37,10 @@ func runClean(args []string) error {
 
 	if err := validateArgs(args, projects); err != nil {
 		return err
+	}
+
+	if len(projects) > 1 && len(args) == 0 {
+		prompt.Warning("ℹ️ You have several projects configured. All of them will be clean up.")
 	}
 
 	for _, p := range projects {

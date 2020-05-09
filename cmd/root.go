@@ -11,7 +11,7 @@ import (
 var (
 	verbosity   string
 	configFile  string
-	interactive bool
+	interactive = false
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -55,5 +55,5 @@ func setUpLogs(out io.Writer, level string) error {
 }
 
 func addInteractiveFlag(cmd *cobra.Command) {
-	cmd.Flags().BoolVarP(&interactive, "interactive", "i", true, "active interactive mode")
+	cmd.Flags().BoolVarP(&interactive, "interactive", "i",false, "active interactive mode")
 }

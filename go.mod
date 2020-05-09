@@ -5,6 +5,7 @@ go 1.12
 require (
 	github.com/AlecAivazis/survey/v2 v2.0.0
 	github.com/Flaque/filet v0.0.0-20190209224823-fc4d33cfcf93
+	github.com/buger/goterm v0.0.0-20200322175922-2f3e71b85129
 	github.com/golang/example v0.0.0-20170904185048-46695d81d1fa
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v0.0.4
