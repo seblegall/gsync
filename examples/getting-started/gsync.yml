@@ -1,5 +1,5 @@
 apiVersion: "gsync/v1alpha1"
-projects:
+workspaces:
   - name: "getting-started"
     repositories:
       - git: "git@github.com:golang/example.git"

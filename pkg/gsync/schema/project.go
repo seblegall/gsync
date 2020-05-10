@@ -17,5 +17,5 @@ func LoadWorkspaces(filename string) ([]v1alpha1.Workspace, error) {
 
 	config := parsed.(*v1alpha1.GsyncConfig)
 
-	return config.Projects, nil
+	return config.Workspaces, nil
 }
