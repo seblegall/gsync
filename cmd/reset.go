@@ -11,25 +11,25 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// cleanCmd represents the create command
-var cleanCmd = &cobra.Command{
-	Use:   "clean",
-	Short: "clean updates you project code with origin/master and discard not staged changes",
-	Long: `the clean command clean up unstaged changes, checkout all repositories on master and rebase master on its origin branch`,
+// resetCmd represents the create command
+var resetCmd = &cobra.Command{
+	Use:   "reset",
+	Short: "reset updates you project code with origin/master and discard not staged changes",
+	Long: `the reset command clean up unstaged changes, checkout all repositories on master and rebase master on its origin branch`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := runClean(args)
+		err := runReset(args)
 		if err != nil {
 			logrus.Fatal(err.Error())
 		}
 	},
 }
 
-func NewCleanCommand() *cobra.Command {
-	addInteractiveFlag(cleanCmd)
-	return cleanCmd
+func NewResetCommand() *cobra.Command {
+	addInteractiveFlag(resetCmd)
+	return resetCmd
 }
 
-func runClean(args []string) error {
+func runReset(args []string) error {
 	projects, err := schema.LoadProjects(configFile)
 	if err != nil {
 		return err
@@ -40,20 +40,20 @@ func runClean(args []string) error {
 	}
 
 	if len(projects) > 1 && len(args) == 0 {
-		prompt.Warning("ℹ️ You have several projects configured. All of them will be clean up.")
+		prompt.Warning("ℹ️ You have several projects configured. All of them will be reset.")
 	}
 
 	for _, p := range projects {
 		if len(args) > 0 {
 			for _, a := range args {
 				if a == p.Name {
-					if err := sync.Clean(p, interactive); err != nil {
+					if err := sync.Reset(p, interactive); err != nil {
 						return err
 					}
 				}
 			}
 		} else {
-			if err := sync.Clean(p, interactive); err != nil {
+			if err := sync.Reset(p, interactive); err != nil {
 				return err
 			}
 		}

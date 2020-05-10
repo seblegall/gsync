@@ -26,18 +26,18 @@ func setupRepositories(repos []v1alpha1.Repository) error {
 	return nil
 }
 
-func Clean(p v1alpha1.Project, interactive bool) error {
+func Reset(p v1alpha1.Project, interactive bool) error {
 
 	repos := p.Repositories
 
-	prompt.Title(fmt.Sprintf("🙌 Cleaning up project %s", p.Name))
+	prompt.Title(fmt.Sprintf("🙌 Resetting project %s", p.Name))
 
 	if interactive {
 		repos = prompt.SelectRepos(p)
 	}
 
 	if err := setupRepositories(repos); err != nil {
-		log.Infof("Cleaning up only part of the project that has been successfully setup.")
+		log.Infof("Resetting only part of the project that has been successfully setup.")
 	}
 
 	for _, repo := range repos {

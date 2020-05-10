@@ -6,15 +6,15 @@ This is a good place to test and learn how to use gsync.
 
 The `gsync.yml` file describe a project called `getting-started` with 2 git repositories.
 
-By running the `clean` command, Gsync will detect missing reporitories, clone theme, and checkout all repositories to master.
+By running the `reset` command, Gsync will detect missing reporitories, clone theme, and checkout all repositories to master.
 
 By doing so, gsync will discard all changes that are not staged.
 
 ```sh
-# Clean up all project repositories
-gsync clean
+# Reset all project repositories
+gsync reset
 
-# Invite the user to select which reposirtories to clean up
-gsync clean -i
+# Invite the user to select which reposirtories to reset
+gsync reset -i
 ```
 
