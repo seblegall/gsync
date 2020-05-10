@@ -13,14 +13,20 @@ func TestFindReposNames(t *testing.T) {
 			{
 				"git@github.com/test/test1.git",
 				"/path/to/my/dir",
+				"",
+				"",
 			},
 			{
 				"git@github.com/test/test2.git",
 				"/path/to/my/dir",
+				"",
+				"",
 			},
 			{
 				"git@github.com/test/test3.git",
 				"/path/to/my/dir",
+				"",
+				"",
 			},
 		},
 	}
@@ -41,14 +47,20 @@ func TestGetRepositoryFromNames(t *testing.T) {
 			{
 				"git@github.com/test/test1.git",
 				"/path/to/my/dir",
+				"",
+				"",
 			},
 			{
 				"git@github.com/test/test2.git",
 				"/path/to/my/dir",
+				"",
+				"",
 			},
 			{
 				"git@github.com/test/test3.git",
 				"/path/to/my/dir",
+				"",
+				"",
 			},
 		},
 	}
@@ -59,6 +71,8 @@ func TestGetRepositoryFromNames(t *testing.T) {
 	assert.Equal(t, v1alpha1.Repository{
 		"git@github.com/test/test1.git",
 		"/path/to/my/dir",
+		"",
+		"",
 	}, repos[0])
 
 }

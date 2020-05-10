@@ -37,7 +37,7 @@ func getRepositoryFromNames(p v1alpha1.Project, names []string) []v1alpha1.Repos
 	var repos []v1alpha1.Repository
 	for _, n := range names {
 		for _, r := range p.Repositories {
-			if r.GetName() == n {
+			if r.Name() == n {
 				repos = append(repos, r)
 			}
 		}
@@ -50,7 +50,7 @@ func findReposNames(p v1alpha1.Project) []string {
 	var names []string
 
 	for _, r := range p.Repositories {
-		names = append(names, r.GetName())
+		names = append(names, r.Name())
 	}
 
 	return names

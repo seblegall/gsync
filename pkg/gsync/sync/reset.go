@@ -14,10 +14,10 @@ import (
 func setupRepositories(repos []v1alpha1.Repository) error {
 	for _, repo := range repos {
 		if _, err := os.Stat(repo.Dir); os.IsNotExist(err) {
-			log.Infof("the directory '%s' does not exist", repo.GetName())
-			log.Infof("cloning '%s' into %s", repo.GetName(), repo.Dir)
+			log.Infof("the directory '%s' does not exist", repo.Name())
+			log.Infof("cloning '%s' into %s", repo.Name(), repo.Dir)
 			if err := git.Clone(repo.Git, repo.Dir); err != nil {
-				log.Errorf("git repository '%s' could not be cloned : %s", repo.GetName(), err.Error() )
+				log.Errorf("git repository '%s' could not be cloned : %s", repo.Name(), err.Error() )
 				log.Errorf("Unable to setup project entirely : %s", err.Error())
 				return err
 			}
@@ -47,15 +47,15 @@ func Reset(p v1alpha1.Project, interactive bool) error {
 		if err := git.Fetch(repo.Dir); err != nil {
 			return err
 		}
-		if err := git.Checkout(repo.Dir, "master"); err != nil {
+		if err := git.Checkout(repo.Dir, repo.GetDefaultBranch()); err != nil {
 			return err
 		}
 
-		if err := git.Rebase(repo.Dir, "origin/master"); err != nil {
+		if err := git.Rebase(repo.Dir, fmt.Sprintf("%s/%s", repo.GetRemote(), repo.GetDefaultBranch())); err != nil {
 			return err
 		}
 
-		prompt.Info(fmt.Sprintf("'%s' is now on branch master and up to date with origin", repo.GetName()))
+		prompt.Info(fmt.Sprintf("'%s' is now on branch master and up to date with origin", repo.Name()))
 
 	}
 
