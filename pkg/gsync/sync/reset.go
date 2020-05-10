@@ -26,14 +26,14 @@ func setupRepositories(repos []v1alpha1.Repository) error {
 	return nil
 }
 
-func Reset(p v1alpha1.Project, interactive bool) error {
+func Reset(w v1alpha1.Workspace, interactive bool) error {
 
-	repos := p.Repositories
+	repos := w.Repositories
 
-	prompt.Title(fmt.Sprintf("🙌 Resetting project %s", p.Name))
+	prompt.Title(fmt.Sprintf("🙌 Resetting project %s", w.Name))
 
 	if interactive {
-		repos = prompt.SelectRepos(p)
+		repos = prompt.SelectRepos(w)
 	}
 
 	if err := setupRepositories(repos); err != nil {

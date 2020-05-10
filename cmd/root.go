@@ -32,6 +32,7 @@ func NewGsyncCommand() *cobra.Command {
 	}
 
 	rootCmd.AddCommand(NewResetCommand())
+	rootCmd.AddCommand(NewStatusCommand())
 
 	rootCmd.PersistentFlags().StringVarP(&verbosity, "verbosity", "v", logrus.InfoLevel.String(), "Log level (debug, info, warn, error, fatal, panic")
 	rootCmd.PersistentFlags().StringVarP(&configFile, "configFile", "f", "gsync.yml", "Gsync file to use.")

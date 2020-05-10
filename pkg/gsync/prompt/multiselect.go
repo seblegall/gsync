@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func SelectRepos(p v1alpha1.Project) []v1alpha1.Repository {
+func SelectRepos(p v1alpha1.Workspace) []v1alpha1.Repository {
 
 	selected := []string{}
 	prompt := &survey.MultiSelect{
@@ -33,7 +33,7 @@ func SelectRepos(p v1alpha1.Project) []v1alpha1.Repository {
 	return getRepositoryFromNames(p, selected)
 }
 
-func getRepositoryFromNames(p v1alpha1.Project, names []string) []v1alpha1.Repository {
+func getRepositoryFromNames(p v1alpha1.Workspace, names []string) []v1alpha1.Repository {
 	var repos []v1alpha1.Repository
 	for _, n := range names {
 		for _, r := range p.Repositories {
@@ -45,7 +45,7 @@ func getRepositoryFromNames(p v1alpha1.Project, names []string) []v1alpha1.Repos
 	return  repos
 }
 
-func findReposNames(p v1alpha1.Project) []string {
+func findReposNames(p v1alpha1.Workspace) []string {
 
 	var names []string
 

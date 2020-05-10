@@ -2,11 +2,14 @@ package git
 
 import (
 	"bufio"
+	"bytes"
 	"errors"
 	"fmt"
-	"github.com/sirupsen/logrus"
+	"io"
 	"os/exec"
 	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
 const (
@@ -39,6 +42,10 @@ func Checkout(path, branch string) error {
 
 func Rebase(path, branch string) error {
 	return execWithoutTimeOut(fmt.Sprintf("git -C %s rebase %s", path, branch))
+}
+
+func ShortStatus(path string) (error, io.Reader) {
+	return execOutput(fmt.Sprintf("git -C %s status -s -b", path))
 }
 
 
@@ -122,4 +129,10 @@ func execWithTimeOut(c string, t time.Duration) error {
 	}
 
 	return nil
+}
+
+func execOutput(c string) (error, io.Reader) {
+	out, err := exec.Command("/bin/sh", "-c", c).Output()
+
+	return err, bytes.NewReader(out)
 }

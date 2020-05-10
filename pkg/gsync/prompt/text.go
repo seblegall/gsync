@@ -23,6 +23,16 @@ func Info(text string) {
 	tm.Flush()
 }
 
+func InfoOK(text string) {
+	tm.Println(tm.Color(text,tm.GREEN))
+	tm.Flush()
+}
+
+func InfoWarn(text string) {
+	tm.Println(tm.Color(text,tm.YELLOW))
+	tm.Flush()
+}
+
 func UserError(text string) {
 	tm.Println(tm.Color(tm.Bold(text),tm.RED))
 	tm.Flush()

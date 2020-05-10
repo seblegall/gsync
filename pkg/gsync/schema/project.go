@@ -6,7 +6,7 @@ import (
 )
 
 
-func LoadProjects(filename string) ([]v1alpha1.Project, error) {
+func LoadWorkspaces(filename string) ([]v1alpha1.Workspace, error) {
 
 	logrus.Debugf("loading project using %s", filename)
 

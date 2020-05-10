@@ -28,8 +28,8 @@ projects:
 	defer filet.CleanUp(t)
 
 	filet.File(t, tmpfilename, config)
-	projects, err := schema.LoadProjects(tmpfilename)
-	assert.Nil(t, err, "LoadProjects failed with an error")
+	projects, err := schema.LoadWorkspaces(tmpfilename)
+	assert.Nil(t, err, "LoadWorkspaces failed with an error")
 	assert.Equal(t, 1, len(projects))
 	p := projects[0]
 	assert.Equal(t, "getting-started", p.Name)

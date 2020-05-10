@@ -7,7 +7,7 @@ import (
 )
 
 func TestFindReposNames(t *testing.T) {
-	p := v1alpha1.Project{
+	p := v1alpha1.Workspace{
 		Name: "Test",
 		Repositories: []v1alpha1.Repository{
 			{
@@ -41,7 +41,7 @@ func TestFindReposNames(t *testing.T) {
 
 
 func TestGetRepositoryFromNames(t *testing.T) {
-	p := v1alpha1.Project{
+	p := v1alpha1.Workspace{
 		Name: "Test",
 		Repositories: []v1alpha1.Repository{
 			{

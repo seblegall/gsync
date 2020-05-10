@@ -15,15 +15,15 @@ func NewGsyncConfig() config.VersionedConfig {
 }
 
 type GsyncConfig struct {
-	APIVersion string `yaml:"apiVersion"`
-	Projects []Project `yaml:"projects"`
+	APIVersion string    `yaml:"apiVersion"`
+	Projects []Workspace `yaml:"projects"`
 }
 
 func (c *GsyncConfig) GetVersion() string {
 	return c.APIVersion
 }
 
-type Project struct {
+type Workspace struct {
 	Name string `yaml:"name"`
 	Repositories []Repository `yaml:"repositories"`
 }
