@@ -7,7 +7,6 @@ import (
 	"github.com/seblegall/gsync/pkg/gsync/git"
 	"github.com/seblegall/gsync/pkg/gsync/prompt"
 	"github.com/seblegall/gsync/pkg/gsync/schema/v1alpha1"
-
 	log "github.com/sirupsen/logrus"
 )
 
@@ -41,21 +40,25 @@ func Reset(w v1alpha1.Workspace, interactive bool) error {
 	}
 
 	for _, repo := range repos {
+
+		defaultBranch := git.DefaultBranch(repo.Dir)
+		remoteName := git.RemoteName(repo.Dir)
+
 		if err := git.Reset(repo.Dir); err != nil {
 			return err
 		}
 		if err := git.Fetch(repo.Dir); err != nil {
 			return err
 		}
-		if err := git.Checkout(repo.Dir, repo.GetDefaultBranch()); err != nil {
+		if err := git.Checkout(repo.Dir, defaultBranch); err != nil {
 			return err
 		}
 
-		if err := git.Rebase(repo.Dir, fmt.Sprintf("%s/%s", repo.GetRemote(), repo.GetDefaultBranch())); err != nil {
+		if err := git.Rebase(repo.Dir, fmt.Sprintf("%s/%s", remoteName, defaultBranch)); err != nil {
 			return err
 		}
 
-		prompt.Info(fmt.Sprintf("'%s' is now on branch master and up to date with origin", repo.Name()))
+		prompt.Info(fmt.Sprintf("'%s' is now on branch %s and up to date with %s", repo.Name(), defaultBranch, remoteName))
 
 	}
 

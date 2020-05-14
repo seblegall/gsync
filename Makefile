@@ -24,3 +24,6 @@ cross-build: ## Build gsync for multiple os/arch
 
 test: ## Launch tests
 	go test -v ./...
+
+install: ## Install gsync globally
+	go install

@@ -6,7 +6,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os/exec"
+	"regexp"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -44,8 +46,48 @@ func Rebase(path, branch string) error {
 	return execWithoutTimeOut(fmt.Sprintf("git -C %s rebase %s", path, branch))
 }
 
-func ShortStatus(path string) (error, io.Reader) {
+func ShortStatus(path string) (io.Reader, error) {
 	return execOutput(fmt.Sprintf("git -C %s status -s -b", path))
+}
+
+var RemoteName = func(path string) string {
+	out, err := execOutput(fmt.Sprintf("git -C %s remote", path))
+	if err != nil {
+		return "origin"
+	}
+
+	s := bufio.NewScanner(out)
+
+	//read only the first remote then breaks
+	var remote string
+	for s.Scan() {
+		if len(s.Text()) < 1 {
+			continue
+		}
+
+		remote = s.Text()
+		break
+	}
+
+	return remote
+}
+
+func DefaultBranch(path string) string {
+	remote := RemoteName(path)
+	out, err := execOutput(fmt.Sprintf("git -C %s symbolic-ref --short refs/remotes/%s/HEAD ", path, remote))
+	if err != nil {
+		return "master"
+	}
+
+	d, err := ioutil.ReadAll(out)
+	if err != nil {
+		return "master"
+	}
+
+	re := regexp.MustCompile(fmt.Sprintf("%s/(.*)", remote))
+	match := re.FindStringSubmatch(string(d))
+	return match[1]
+
 }
 
 
@@ -131,8 +173,8 @@ func execWithTimeOut(c string, t time.Duration) error {
 	return nil
 }
 
-func execOutput(c string) (error, io.Reader) {
+var execOutput = func(c string) (io.Reader, error) {
 	out, err := exec.Command("/bin/sh", "-c", c).Output()
 
-	return err, bytes.NewReader(out)
+	return bytes.NewReader(out), err
 }
