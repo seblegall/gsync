@@ -31,6 +31,7 @@ func NewGsyncCommand() *cobra.Command {
 		return nil
 	}
 
+	rootCmd.AddCommand(NewInitCommand())
 	rootCmd.AddCommand(NewResetCommand())
 	rootCmd.AddCommand(NewStatusCommand())
 

@@ -29,7 +29,7 @@ func Reset(w v1alpha1.Workspace, interactive bool) error {
 
 	repos := w.Repositories
 
-	prompt.Title(fmt.Sprintf("🙌 Resetting project %s", w.Name))
+	prompt.Title(fmt.Sprintf("🙌 Resetting workspace %s", w.Name))
 
 	if interactive {
 		repos = prompt.SelectRepos(w)
@@ -57,6 +57,33 @@ func Reset(w v1alpha1.Workspace, interactive bool) error {
 		if err := git.Rebase(repo.Dir, fmt.Sprintf("%s/%s", remoteName, defaultBranch)); err != nil {
 			return err
 		}
+
+		prompt.Info(fmt.Sprintf("'%s' is now on branch %s and up to date with %s", repo.Name(), defaultBranch, remoteName))
+
+	}
+
+	return nil
+}
+
+
+func Init(w v1alpha1.Workspace, interactive bool) error {
+
+	repos := w.Repositories
+
+	prompt.Title(fmt.Sprintf("🤙 Initing workspace %s", w.Name))
+
+	if interactive {
+		repos = prompt.SelectRepos(w)
+	}
+
+	if err := setupRepositories(repos); err != nil {
+		log.Infof("Init only part of the workspace that has been successfully setup.")
+	}
+
+	for _, repo := range repos {
+
+		defaultBranch := git.DefaultBranch(repo.Dir)
+		remoteName := git.RemoteName(repo.Dir)
 
 		prompt.Info(fmt.Sprintf("'%s' is now on branch %s and up to date with %s", repo.Name(), defaultBranch, remoteName))
 
